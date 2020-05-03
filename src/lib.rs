@@ -3,7 +3,6 @@
 //! # `aima-rust` &emsp; ![Build] ![Crate]
 //!
 //! [Build]: https://github.com/nkconnor/aima-rust/workflows/build/badge.svg
-//! [Crate]: https://img.shields.io/crates/v/ent
 //!
 //! Rust implementation of programs in [**Artifical Intelligence: A Modern Approach**](http://aima.cs.berkeley.edu/).
 //! For more complete examples please see the [Java](http://j) and [Python](http://p) repositories.
