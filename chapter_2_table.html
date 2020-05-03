@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html" class="active"><strong aria-hidden="true">2.1.</strong> Table Driven</a></li><li class="expanded "><a href="chapter_2_reflex.html"><strong aria-hidden="true">2.2.</strong> Simple Reflexes</a></li><li class="expanded "><a href="chapter_2_fallible.html"><strong aria-hidden="true">2.3.</strong> Fallibility</a></li></ol></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html" class="active"><strong aria-hidden="true">2.1.</strong> Table Driven</a></li><li class="expanded "><a href="chapter_2_reflex.html"><strong aria-hidden="true">2.2.</strong> Simple Reflexes</a></li><li class="expanded "><a href="chapter_2_fallible.html"><strong aria-hidden="true">2.3.</strong> Fallibility</a></li><li class="expanded "><a href="chapter_2_model.html"><strong aria-hidden="true">2.4.</strong> Model Based</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -176,7 +176,7 @@ the complete percept history.</p>
 type Table&lt;Percept: Lookup, Action&gt; = HashMap&lt;Vec&lt;Percept&gt;, Action&gt;;
 <span class="boring">}
 </span></code></pre></pre>
-<p>This simple data structure may look a little intimidating if you are just getting started with
+<p>This data structure may look a little intimidating if you are just getting started with
 Rust. We've defined a short-hand for <code>std::collections::HashMap</code> called <code>Table</code> that is generic
 over the <code>Percepts</code> received and <code>Actions</code> produced. The trait <code>Lookup</code> is defined to satisfy
 some requirements of the HashMap structure, specifically, that Percepts can be <em>hashed</em> and
@@ -282,13 +282,13 @@ be optimistic and test the agent out with a sensor reading of a warm breezy atmo
 </span><span class="boring">table.insert(vec![Weather::Sunny], Window::Open);
 </span><span class="boring">table.insert(vec![Weather::Rainy], Window::Close);
 </span>let mut agent = TableDrivenAgent::new(table);
-let weather = Weather::Sunny;
-let action = agent.run(weather);
+
+let action = agent.run(Weather::Sunny);
 assert_eq!(*action, Window::Open)
 <span class="boring">}
 </span></code></pre></pre>
-<p>Ok great the window is doing exactly what it should be. Now let's make it work for more than
-one time step. Our table program should be able to react to all percept sequences. One way to create this table
+<p>Ok great, the window is doing exactly what it should be doing. Now let's make it work for more than
+one time step. Our table agent should be able to react to all percept sequences. One way to create this table
 is to look at the longest sequences in the table and consider what can happen next: sun or rain, and 
 then add that percept sequence into the table.</p>
 <pre><pre class="playpen"><code class="language-rust no_run">
@@ -337,9 +337,10 @@ then add that percept sequence into the table.</p>
     sequences_to_extend.iter().for_each(|percepts| {
       let mut rainy_path = percepts.clone();
       rainy_path.push(Weather::Rainy);
+      table.insert(rainy_path, Window::Close);
+
       let mut sunny_path = percepts.clone();
       sunny_path.push(Weather::Sunny);
-      table.insert(rainy_path, Window::Close);
       table.insert(sunny_path, Window::Open);
    });
 }

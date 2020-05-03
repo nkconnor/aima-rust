@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Fallibility - </title>
+        <title>Model Based - </title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html"><strong aria-hidden="true">2.1.</strong> Table Driven</a></li><li class="expanded "><a href="chapter_2_reflex.html"><strong aria-hidden="true">2.2.</strong> Simple Reflexes</a></li><li class="expanded "><a href="chapter_2_fallible.html" class="active"><strong aria-hidden="true">2.3.</strong> Fallibility</a></li><li class="expanded "><a href="chapter_2_model.html"><strong aria-hidden="true">2.4.</strong> Model Based</a></li></ol></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html"><strong aria-hidden="true">2.1.</strong> Table Driven</a></li><li class="expanded "><a href="chapter_2_reflex.html"><strong aria-hidden="true">2.2.</strong> Simple Reflexes</a></li><li class="expanded "><a href="chapter_2_fallible.html"><strong aria-hidden="true">2.3.</strong> Fallibility</a></li><li class="expanded "><a href="chapter_2_model.html" class="active"><strong aria-hidden="true">2.4.</strong> Model Based</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -151,107 +151,32 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#fallibility" id="fallibility">Fallibility</a></h1>
-<p>In the last section, we left off with the idea that our reflex agent cannot always respond with an
-action. We could put the <a href="chapter_2_table.html">Table Driven Agent</a> in the same situation by relaxing 
-the constraints of the table somewhat. Let's say it is 1970 and we are the designers of the
-Window Agent. At the time, the table approach seems most reasonable, and given our computational
-limits we can only generate a table that will that includes percept sequences up to the year 2000. Our
-product comes with a lifetime guarantee, so, as part of that we include a little red blinking light
-that comes on if the product needs maintenance. If our agent encounters a percept sequence in Y2K, we can
-return an error, and allow the parent system to turn on the red blinking light.</p>
-<p>Let's bring back our <code>TableDrivenAgent</code> implementation:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
-</span><span class="boring">fn main() {
-</span><span class="boring">#![feature(trait_alias)]
-</span><span class="boring">use std::collections::HashMap;
-</span><span class="boring">trait Lookup = Eq + std::hash::Hash;
-</span><span class="boring">
-</span><span class="boring">type Table&lt;Percept: Lookup, Action&gt; = HashMap&lt;Vec&lt;Percept&gt;, Action&gt;;
-</span><span class="boring">struct TableDrivenAgent&lt;Percept: Lookup, Action&gt;{
-</span><span class="boring">    percepts: Vec&lt;Percept&gt;,
-</span><span class="boring">    table: Table&lt;Percept, Action&gt;
-</span><span class="boring">}
-</span><span class="boring">impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
-</span><span class="boring">  fn new(table: Table&lt;Percept, Action&gt;) -&gt; Self {
-</span><span class="boring">      TableDrivenAgent {
-</span><span class="boring">          table, percepts: Vec::new()
-</span><span class="boring">      }
-</span><span class="boring">  }
-</span><span class="boring">}
-</span>impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
-    // Run is called for each percept received from the environment
-    fn run(&amp;mut self, percept: Percept) -&gt; &amp;Action {
-        // Push the percept into our history sequence
-        self.percepts.push(percept);
-        // Lookup an action for the history sequence and return it
-        self.table.get(&amp;self.percepts).unwrap()
-    }
-}
-<span class="boring">}
-</span></code></pre></pre>
-<p>We can update the <code>run</code> signature quite easily to return Rust's <code>std::result::Result</code> type. First, let's
-create a couple symbols to represent our agent's result and potential errors.</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
-</span><span class="boring">fn main() {
-</span>enum Error {
-    RequestedY2K
-}
-
-type Result&lt;A&gt; = std::result::Result&lt;A, Error&gt;;
-<span class="boring">}
-</span></code></pre></pre>
-<p>Now, let's update the <code>run</code> implementation:</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
-</span><span class="boring">fn main() {
-</span>  fn run(&amp;mut self, percept: Percept) -&gt; Result&lt;&amp;Action&gt; {
-      self.percepts.push(percept);
-      self.table.get(&amp;self.percepts)
-        // if the action is found in the table,
-        // return Result::Ok(action)
-        .map(Ok)
-        // elsewise, return Result::Errr(error)
-        .unwrap_or(Err(Error::RequestedY2K))
-  }
-<span class="boring">}
-</span></code></pre></pre>
-<p>You might be wondering why we could have so naively written
-a crashable program in the first place. One of the principles for using Rust was indeed that it <em>is error 
-resilient</em>! If you've read the Rust book chapter on error handling, then you realize that <code>panic!</code> crashing
-is in the toolkit of an agent designer. What you might not have known, is that <code>unwrap()</code> functions almost
-always have a <code>panic!</code> clause. When we retrieve an item from the <code>Table</code> using <code>get</code>, it returns an <code>Option</code>.
-Unwrap on an option that contains <code>None</code> results in a <code>panic!</code>. This is always layed out in the documentation 
-for a function with a heading <strong># Panics</strong> as <a href="https://doc.rust-lang.org/beta/std/option/enum.Option.html#method.unwrap">you can see here</a>.</p>
-<p>Our table driven agent is now relaxed so that <em>any</em> table can be included and used as a lookup
-without allowing the program to crash. A caller of the agent can interpret the result as an action or error
-and delegate next steps appropriately. For example,</p>
-<pre><pre class="playpen"><code class="language-rust">
-<span class="boring">#![allow(unused_variables)]
-</span><span class="boring">fn main() {
-</span>agent.run(Weather::Cloudy)
-    .map_err(|err| start_red_blinking_light())
-<span class="boring">}
-</span></code></pre></pre>
-<p>Well, it's 1960, so this is still a leap-forward compared to the competition. That reminds us, we haven't introduced
-fallibility to the Simple Reflex Agent. Can you pause and do that now?</p>
+                        <h1><a class="header" href="#model-based" id="model-based">Model Based</a></h1>
+<blockquote>
+<p><strong>function</strong> MODEL-BASED-REFLEX-AGENT(<em>percept</em>) <strong>returns</strong> an action<br />
+ <strong>persistent</strong>: <em>state</em>, the agent's current conception of the world state<br />
+      <em>model</em>, how the next state depends on current state and action<br />
+      <em>rules</em>, a set of condition-action rules<br />
+      <em>action</em>, the most recent action, initially none</p>
+<p> <em>state</em> ← UPDATE-STATE(<em>state</em>, <em>action</em>, <em>percept</em>, <em>model</em>)<br />
+ <em>rule</em> ← RULE-MATCH(<em>state</em>,<em>rules</em>)<br />
+ <em>action</em> ← <em>rule</em>.ACTION<br />
+ <strong>return</strong> <em>action</em></p>
+<hr />
+<p><strong>Figure 2.12</strong> A model-based reflex agent. It keeps track of the current state of the world, using an internal model. 
+It then chooses an action in the same way as the reflex agent.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="chapter_2_reflex.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="chapter_2_fallible.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
-                        
-                            <a rel="next" href="chapter_2_model.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -261,15 +186,11 @@ fallibility to the Simple Reflex Agent. Can you pause and do that now?</p>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="chapter_2_reflex.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="chapter_2_fallible.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
-                
-                    <a href="chapter_2_model.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 
             </nav>
 
