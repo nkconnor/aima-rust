@@ -381,7 +381,7 @@ to failure. Let \(P\) be the set of possible percepts and let \(T\) be the lifet
 number of percepts it will receive). The lookup table will contain \(\sum_{t=1}^T |P|^t\) entries.</p>
 </blockquote>
 <p>In our case, we've asked the agent to handle all possible percepts for the rest of time. Sparing the 
-this results in a lookup table that is infinite, and the capacity to do such a computation is
+proof this results in a lookup table that is infinite, and the capacity to do such a computation is
 impossible. What simple changes could be made to our agent such that it can act rationally according
 to the weather but not use excessive resources?</p>
 <h1><a class="header" href="#simple-reflex-agent" id="simple-reflex-agent">Simple Reflex Agent</a></h1>
@@ -546,21 +546,6 @@ If you haven't yet, go take a look at the <a href="https://doc.rust-lang.org/boo
 
         </div>
 
-        
-        <!-- Livereload script (if served using the cli tool) -->
-        <script type="text/javascript">
-            var socket = new WebSocket("ws://localhost:3001");
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload(true); // force reload from server (not from cache)
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
         
 
         

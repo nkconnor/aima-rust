@@ -199,6 +199,6 @@ any weather that could happen, is an irrational agent implementation. Recall fro
 > number of percepts it will receive). The lookup table will contain \\(\sum_{t=1}^T |P|^t\\) entries.
 
 In our case, we've asked the agent to handle all possible percepts for the rest of time. Sparing the 
-this results in a lookup table that is infinite, and the capacity to do such a computation is
+proof this results in a lookup table that is infinite, and the capacity to do such a computation is
 impossible. What simple changes could be made to our agent such that it can act rationally according
 to the weather but not use excessive resources?
