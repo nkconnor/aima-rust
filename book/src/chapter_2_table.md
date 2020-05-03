@@ -27,7 +27,7 @@ trait Lookup = Eq + std::hash::Hash;
 type Table<Percept: Lookup, Action> = HashMap<Vec<Percept>, Action>;
 ```
 
-This simple data structure may look a little intimidating if you are just getting started with
+This data structure may look a little intimidating if you are just getting started with
 Rust. We've defined a short-hand for `std::collections::HashMap` called `Table` that is generic
 over the `Percepts` received and `Actions` produced. The trait `Lookup` is defined to satisfy
 some requirements of the HashMap structure, specifically, that Percepts can be _hashed_ and
@@ -127,13 +127,13 @@ be optimistic and test the agent out with a sensor reading of a warm breezy atmo
 # table.insert(vec![Weather::Sunny], Window::Open);
 # table.insert(vec![Weather::Rainy], Window::Close);
 let mut agent = TableDrivenAgent::new(table);
-let weather = Weather::Sunny;
-let action = agent.run(weather);
+
+let action = agent.run(Weather::Sunny);
 assert_eq!(*action, Window::Open)
 ```
 
-Ok great the window is doing exactly what it should be. Now let's make it work for more than
-one time step. Our table program should be able to react to all percept sequences. One way to create this table
+Ok great, the window is doing exactly what it should be doing. Now let's make it work for more than
+one time step. Our table agent should be able to react to all percept sequences. One way to create this table
 is to look at the longest sequences in the table and consider what can happen next: sun or rain, and 
 then add that percept sequence into the table.
 
@@ -181,9 +181,10 @@ loop {
     sequences_to_extend.iter().for_each(|percepts| {
       let mut rainy_path = percepts.clone();
       rainy_path.push(Weather::Rainy);
+      table.insert(rainy_path, Window::Close);
+
       let mut sunny_path = percepts.clone();
       sunny_path.push(Weather::Sunny);
-      table.insert(rainy_path, Window::Close);
       table.insert(sunny_path, Window::Open);
    });
 }
