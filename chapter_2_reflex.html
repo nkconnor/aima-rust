@@ -1,0 +1,369 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Simple Reflex Agent - </title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html"><strong aria-hidden="true">2.1.</strong> Table Driven Agent</a></li><li class="expanded "><a href="chapter_2_reflex.html" class="active"><strong aria-hidden="true">2.2.</strong> Simple Reflex Agent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#simple-reflex-agent" id="simple-reflex-agent">Simple Reflex Agent</a></h1>
+<p>Following our question from the last section, hopefully, we have both arrived at the conclusion
+that our window agent <em>does not</em> need to store the entire percept sequence to determine its action.
+In fact, it is perfectly suited to the same reflex pattern shown in figure 2.8 for the
+vacuum cleaner. It can look at a single percept, Sunny or Rainy; and Open or Close respectively.</p>
+<blockquote>
+<p><strong>function</strong> SIMPLE-REFLEX-AGENT(<em>percept</em>) <strong>returns</strong> an action<br />
+ <strong>persistent</strong>: <em>rules</em>, a set of condition-action rules</p>
+<p> <em>state</em> ← INTERPRET-INPUT(<em>percept</em>)<br />
+ <em>rule</em> ← RULE-MATCH(<em>state</em>,<em>rules</em>)<br />
+ <em>action</em> ← <em>rule</em>.ACTION<br />
+ <strong>return</strong> <em>action</em></p>
+<hr />
+<p><strong>Figure 2.8</strong> A simple reflex agent. It acts according to a rule whose condition matches the current state, as defined by the percept.</p>
+</blockquote>
+<p>In so far as this agent only has to react to a single percept and not the entire sequence, it is more simple. However,
+now instead of a simple table lookup, we have two generic functions that are included: <code>INTERPRET-INPUT</code> and <code>RULE-MATCH</code>.</p>
+<p>We can envision that the API for such an agent might look something like this:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::reflex::{self, SimpleReflexAgent};
+</span><span class="boring">use aima_rust::agents::envs::weather::{Window, Weather};
+</span>let interpet_input = |percept| percept; // identity function
+
+let rule_match = |percept| match percept {
+    Weather::Sunny =&gt; Window::Open,
+    Weather::Rainy =&gt; Window::Close
+};
+
+let agent = SimpleReflexAgent::new(interpet_input, rule_match);
+<span class="boring">}
+</span></code></pre></pre>
+<p>The actual nuts and bolts to make this work in the same fashion as our prior agent gets a little bit verbose.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>pub struct SimpleReflexAgent&lt;Percept, State, Action, InterpretFn, RuleFn&gt;
+where
+    InterpretFn: FnOnce(Percept) -&gt; State,
+    RuleFn: FnOnce(State) -&gt; Action,
+{
+    interpret_input: InterpretFn,
+    rule_match: RuleFn,
+    _phantom: PhantomData&lt;(Percept, State, Action)&gt;,
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Here we have a <code>struct</code> that can store our two functions generically over any sort of <code>Percept</code>, <code>State</code>, and
+<code>Action</code>. Recall that <code>State</code> is derived from the interpret input function. That is a (maybe) lightweight
+transformation of the percept to something ready for rule matching. As an example, let's introduce some more
+complexity to the environment. Let's say instead of just Sunny and Rainy, it can also be Cloudy, Partly Cloudy,
+or even Thunderstorm:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>enum Weather {
+    Sunny, Rainy, Cloudy, PartlyCloudy, Thunderstorm
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Many of these sensor readings inevitably will lead to the same rational rule execution in our agent. We can create
+a <code>State</code> that more succinctly represents the outside world in terms of how the agent may respond.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>enum State{
+    Good, Bad
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Now, we can define the <code>INTERPRET-INPUT</code> as follows:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let interpret_input = |percept| match percept {
+    Weather::Sunny =&gt; State::Good,
+    Weather::PartlyCloudy =&gt; State::Good,
+    Weather::Rainy =&gt; State::Bad,
+    Weather::Thunderstorm =&gt; State::Bad,
+
+    Weather::Cloudy =&gt; unimplimented!() // ???
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>You should notice that <code>interpret_input(Weather::Cloudy)</code> is undefined. In fact, if you run that,
+the entire program will crash! The thing is, we're not quite smart enough to say if this percept signals
+a good state or a bad state. Sometimes cloudiness leads to rain and other times it does not. We also haven't said much about
+how often our sensors get a reading or how accurate they are. Let's introduce a third enumeration:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>enum State{
+    Good, Bad, Unknown(Weather)
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We can now complete our function by adding a catch-all at the end for percepts we can't bucket into just
+Good or Bad.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let interpret_input = |percept| match percept {
+    Weather::Sunny =&gt; State::Good,
+    Weather::PartlyCloudy =&gt; State::Good,
+    Weather::Rainy =&gt; State::Bad,
+    Weather::Thunderstorm =&gt; State::Bad,
+
+    _ =&gt; State::Unknown(_)
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>With our new atmospheric conditions and simplified state interpretation in hand, let's get back to the interesting parts.
+Our agent has a singular task of opening and closing the window when appropriate. To do that, we can update the <code>RULE-MATCH</code>
+function.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let rule_match = |state| match state {
+    State::Good =&gt; Window::Open,
+    State::Bad =&gt; Window::Close,
+    State::Unknown =&gt; unimplimented!() // ???
+};
+<span class="boring">}
+</span></code></pre></pre>
+<p>We are left in a similar scenario as last time. How can we choose an action when we are in an undefined state? We could
+take the risk-averse path and always close the window whenever we are uncertain about what rule to apply. However, there
+will surely be times when the window should be open and the house is getting awful stuffy! Another option would be to
+leave things as they are, and if an undefined state comes along, we simply crash. Neither seems to be the makings
+of a very reliable agent. </p>
+<p>Instead, what we propose is to allow the agent to return a successful action signal, or an error signal with the reason
+it could not complete its task. This may turn out to be a very useful construct, for example, what if instead of a 
+simple closure, we are actually interacting with the <a href="https://www.weather.gov/documentation/services-web-api">National Weather Service's API</a>
+over TCP, and in-the-midst of our work, an underground internet cable is cut? Should we crash then? It could be perhaps
+helpful to delegate an agent error to some other part of the system or trigger a phone call to the Window Agent customer
+support center. </p>
+<p>Note, these are all reactions that could be feasibly undertaken in the encapsulation of our agent's <code>rule_match</code> function, perhaps,
+with a default behaviour of closing the window until some sensible percept comes along. However, let's use what seems like
+better judgement and go with the approach of the agent being <em>fallible</em>. This is an area where Rust starts to shine.
+If you haven't yet, go take a look at the <a href="https://doc.rust-lang.org/book/ch09-00-error-handling.html">Rust book's chapter on error handling</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_2_table.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="chapter_2_table.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

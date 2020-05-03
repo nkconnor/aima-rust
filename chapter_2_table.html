@@ -1,0 +1,444 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Table Driven Agent - </title>
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
+                <ol class="chapter"><li class="expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Intelligent Agents</a></li><li><ol class="section"><li class="expanded "><a href="chapter_2_table.html" class="active"><strong aria-hidden="true">2.1.</strong> Table Driven Agent</a></li><li class="expanded "><a href="chapter_2_reflex.html"><strong aria-hidden="true">2.2.</strong> Simple Reflex Agent</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title"></h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#table-driven-agent" id="table-driven-agent">Table Driven Agent</a></h1>
+<blockquote>
+<p><strong>function</strong> TABLE-DRIVEN-AGENT(<em>percept</em>) <strong>returns</strong> an action<br />
+ <strong>persistent</strong>: <em>percepts</em>, a sequence, initially empty<br />
+      <em>table</em>, a fully specified table of actions, indexed by percept sequences, <br/></p>
+<p> append <em>percept</em> to the end of <em>percepts</em><br />
+ <em>action</em> ← LOOKUP(<em>percepts</em>, <em>table</em>)<br />
+ <strong>return</strong> <em>action</em></p>
+<hr />
+<p><strong>Figure 2.3</strong> The TABLE-DRIVEN-AGENT program is invoked for each new percept and returns an action each time. It retains the complete percept sequence in memory.</p>
+</blockquote>
+<p>The table driven agent program is fairly simple to implement. We need a function that
+on each percept, stores the percept, and then resolves an action using a lookup table of
+the complete percept history.</p>
+<p>We can use a simple Hash Map to represent the table:</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#![feature(trait_alias)]
+</span><span class="boring">use std::collections::HashMap;
+</span>trait Lookup = Eq + std::hash::Hash;
+
+type Table&lt;Percept: Lookup, Action&gt; = HashMap&lt;Vec&lt;Percept&gt;, Action&gt;;
+<span class="boring">}
+</span></code></pre></pre>
+<p>This simple data structure may look a little intimidating if you are just getting started with
+Rust. We've defined a short-hand for <code>std::collections::HashMap</code> called <code>Table</code> that is generic
+over the <code>Percepts</code> received and <code>Actions</code> produced. The trait <code>Lookup</code> is defined to satisfy
+some requirements of the HashMap structure, specifically, that Percepts can be <em>hashed</em> and
+they can be <em>compared for equivalence</em>.</p>
+<p>Now, we'll create some boilerplate to instantiate and run new programs. We'll use a struct
+to store the percept history and table of sequence to actions.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::table::{Lookup, Table};
+</span>struct TableDrivenAgent&lt;Percept: Lookup, Action&gt;{
+    percepts: Vec&lt;Percept&gt;,
+    table: Table&lt;Percept, Action&gt;
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Next, let's implement our program.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::table::{Lookup, Table};
+</span><span class="boring">struct TableDrivenAgent&lt;Percept: Lookup, Action&gt;{
+</span><span class="boring">   percepts: Vec&lt;Percept&gt;,
+</span><span class="boring">   table: Table&lt;Percept, Action&gt;
+</span><span class="boring">}
+</span>impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
+    // Run is called for each percept received from the environment
+    fn run(&amp;mut self, percept: Percept) -&gt; &amp;Action {
+        // Push the percept into our history sequence
+        self.percepts.push(percept);
+        // Lookup an action for the history sequence and return it
+        self.table.get(&amp;self.percepts).unwrap()
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Great. We've created a table driven agent program. One last thing we forgot to do, we need
+to be able to create the program given a table!</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::table::{Table, Lookup};
+</span><span class="boring">struct TableDrivenAgent&lt;Percept: Lookup, Action&gt;{
+</span><span class="boring">    percepts: Vec&lt;Percept&gt;,
+</span><span class="boring">    table: Table&lt;Percept, Action&gt;
+</span><span class="boring">}
+</span>impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
+  fn new(table: Table&lt;Percept, Action&gt;) -&gt; Self {
+      TableDrivenAgent {
+          table, percepts: Vec::new()
+      }
+  }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>This will give us a short-hand initialization for programs that looks like</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>let agent = TableDrivenAgent::new(table);
+<span class="boring">}
+</span></code></pre></pre>
+<p>Let's put our newly defined table driven agent code into practice: imagine that far off in the
+future windows to our houses are intended to open and close automatically based on the outside
+conditions. For example, we may open the windows in the Summer to let in fresh air on a sunny day.
+When it rains, we shut the windows to keep the house dry.</p>
+<p>To keep things simple let's say our agent should open the window when it is sunny and
+close the window when it is rainy.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span>// The agent's percepts
+#[derive(PartialEq, Eq, Hash, Clone)]
+enum Weather {
+    Sunny, Rainy
+}
+// The agent's actions
+enum Window {
+    Open, Close
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>We'll create a simple table to deal with the changing outside conditions. First, let's
+set-up the initial conditions.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::table::Table;
+</span><span class="boring">use aima_rust::agents::envs::weather::{Weather, Window};
+</span>let mut table = Table::new();
+table.insert(vec![Weather::Sunny], Window::Open);
+table.insert(vec![Weather::Rainy], Window::Close);
+<span class="boring">}
+</span></code></pre></pre>
+<p>When our agent boots up, it should be able to perceive the weather and act rationally. We'll
+be optimistic and test the agent out with a sensor reading of a warm breezy atmosphere.</p>
+<pre><pre class="playpen"><code class="language-rust">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use aima_rust::agents::table::{TableDrivenAgent, Table};
+</span><span class="boring">use aima_rust::agents::envs::weather::{Weather, Window};
+</span><span class="boring">let mut table = Table::new();
+</span><span class="boring">table.insert(vec![Weather::Sunny], Window::Open);
+</span><span class="boring">table.insert(vec![Weather::Rainy], Window::Close);
+</span>let mut agent = TableDrivenAgent::new(table);
+let weather = Weather::Sunny;
+let action = agent.run(weather);
+assert_eq!(*action, Window::Open)
+<span class="boring">}
+</span></code></pre></pre>
+<p>Ok great the window is doing exactly what it should be. Now let's make it work for more than
+one time step. Our table program should be able to react to all percept sequences. One way to create this table
+is to look at the longest sequences in the table and consider what can happen next: sun or rain, and 
+then add that percept sequence into the table.</p>
+<pre><pre class="playpen"><code class="language-rust no_run">
+<span class="boring">#![allow(unused_variables)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#![feature(trait_alias)]
+</span><span class="boring">use std::collections::HashMap;
+</span><span class="boring">trait Lookup = Eq + std::hash::Hash;
+</span><span class="boring">
+</span><span class="boring">type Table&lt;Percept: Lookup, Action&gt; = HashMap&lt;Vec&lt;Percept&gt;, Action&gt;;
+</span><span class="boring">struct TableDrivenAgent&lt;Percept: Lookup, Action&gt;{
+</span><span class="boring">    percepts: Vec&lt;Percept&gt;,
+</span><span class="boring">    table: Table&lt;Percept, Action&gt;
+</span><span class="boring">}
+</span><span class="boring">impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
+</span><span class="boring">    // Run is called for each percept received from the environment
+</span><span class="boring">    fn run(&amp;mut self, percept: Percept) -&gt; &amp;Action {
+</span><span class="boring">        // Push the percept into our history sequence
+</span><span class="boring">        self.percepts.push(percept);
+</span><span class="boring">        // Lookup an action for the history sequence and return it
+</span><span class="boring">        self.table.get(&amp;self.percepts).unwrap()
+</span><span class="boring">    }
+</span><span class="boring">}
+</span><span class="boring">impl&lt;Percept: Lookup, Action&gt; TableDrivenAgent&lt;Percept, Action&gt; {
+</span><span class="boring">  fn new(table: Table&lt;Percept, Action&gt;) -&gt; Self {
+</span><span class="boring">      TableDrivenAgent {
+</span><span class="boring">          table, percepts: Vec::new()
+</span><span class="boring">      }
+</span><span class="boring">  }
+</span><span class="boring">}
+</span><span class="boring">// The agent's percepts
+</span><span class="boring">#[derive(PartialEq, Eq, Hash, Clone)]
+</span><span class="boring">enum Weather {
+</span><span class="boring">    Sunny, Rainy
+</span><span class="boring">}
+</span><span class="boring">// The agent's actions
+</span><span class="boring">enum Window {
+</span><span class="boring">    Open, Close
+</span><span class="boring">}
+</span><span class="boring">let mut table = Table::new();
+</span>loop {
+    // Find the longest sequences in the table
+    let max_length = table.keys().map(|ks| ks.len()).max().unwrap_or(0);
+    let sequences_to_extend: Vec&lt;Vec&lt;Weather&gt;&gt; = table.keys().filter(|k| k.len() == max_length).clone
+    // Extend them with the next percept permutations
+    sequences_to_extend.iter().for_each(|percepts| {
+      let mut rainy_path = percepts.clone();
+      rainy_path.push(Weather::Rainy);
+      let mut sunny_path = percepts.clone();
+      sunny_path.push(Weather::Sunny);
+      table.insert(rainy_path, Window::Close);
+      table.insert(sunny_path, Window::Open);
+   });
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>If you have been complicit to this point, running the preceding block in the playground should
+have resulted in a <code>KILL TIMEOUT</code> error, and locally you would have surely exceeded the memory
+limits of your computer! Our loop, while conceptually correct in creating the agent table for
+any weather that could happen, is an irrational agent implementation. Recall from the book:</p>
+<blockquote>
+<p>It is instructive to consider why the table-driven approach to agent construction is doomed
+to failure. Let \(P\) be the set of possible percepts and let \(T\) be the lifetime of the agent (the t
+number of percepts it will receive). The lookup table will contain \(\sum_{t=1}^T |P|^t\) entries.</p>
+</blockquote>
+<p>In our case, we've asked the agent to handle all possible percepts for the rest of time. Sparing the 
+this results in a lookup table that is infinite, and the capacity to do such a computation is
+impossible. What simple changes could be made to our agent such that it can act rationally according
+to the weather but not use excessive resources?</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="chapter_2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="chapter_2_reflex.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="chapter_2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="chapter_2_reflex.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            var socket = new WebSocket("ws://localhost:3001");
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload(true); // force reload from server (not from cache)
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+        
+
+        
+
+        
+        
+        
+        <script type="text/javascript">
+            window.playpen_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
