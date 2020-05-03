@@ -5,3 +5,4 @@
     - [Table Driven](chapter_2_table.md)
     - [Simple Reflexes](chapter_2_reflex.md)
     - [Fallibility](chapter_2_fallible.md)
+    - [Model Based](chapter_2_model.md)
