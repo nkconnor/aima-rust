@@ -1,4 +1,4 @@
-# Simple Reflex Agent
+# Simple Reflexes
 
 Following our question from the last section, hopefully, we have both arrived at the conclusion
 that our window agent _does not_ need to store the entire percept sequence to determine its action.
@@ -127,14 +127,17 @@ will surely be times when the window should be open and the house is getting awf
 leave things as they are, and if an undefined state comes along, we simply crash. Neither seems to be the makings
 of a very reliable agent. 
 
-Instead, what we propose is to allow the agent to return a successful action signal, or an error signal with the reason
+Instead, what we propose is to allow the agent to return a successful action or an error with the reason
 it could not complete its task. This may turn out to be a very useful construct, for example, what if instead of a 
 simple closure, we are actually interacting with the [National Weather Service's API](https://www.weather.gov/documentation/services-web-api)
 over TCP, and in-the-midst of our work, an underground internet cable is cut? Should we crash then? It could be perhaps
 helpful to delegate an agent error to some other part of the system or trigger a phone call to the Window Agent customer
 support center. 
 
-Note, these are all reactions that could be feasibly undertaken in the encapsulation of our agent's `rule_match` function, perhaps,
+These are all reactions that could be feasibly undertaken in the encapsulation of our agent's `rule_match` function, perhaps,
 with a default behaviour of closing the window until some sensible percept comes along. However, let's use what seems like
 better judgement and go with the approach of the agent being _fallible_. This is an area where Rust starts to shine.
 If you haven't yet, go take a look at the [Rust book's chapter on error handling](https://doc.rust-lang.org/book/ch09-00-error-handling.html).
+
+Note too, we haven't included an `impl SimpleReflexAgent` that defines the `run` function like we did in the last section.
+Can you derive the implementation and test it with our new functions and sensor readings?
