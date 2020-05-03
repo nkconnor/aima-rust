@@ -175,9 +175,18 @@ then add that percept sequence into the table.
 # let mut table = Table::new();
 loop {
     // Find the longest sequences in the table
-    let max_length = table.keys().map(|ks| ks.len()).max().unwrap_or(0);
-    let sequences_to_extend: Vec<Vec<Weather>> = table.keys().filter(|k| k.len() == max_length).clone
+    let max_length = table.keys()
+        .map(|ks| ks.len())
+        .max().unwrap_or(0);
+    
+    // & all sequences of that length 
+    let sequences_to_extend: Vec<Vec<Weather>> = table.keys()
+        .filter(|k| k.len() == max_length)
+        .cloned()
+        .collect()
+
     // Extend them with the next percept permutations
+    // and add back into the table
     sequences_to_extend.iter().for_each(|percepts| {
       let mut rainy_path = percepts.clone();
       rainy_path.push(Weather::Rainy);
