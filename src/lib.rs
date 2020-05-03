@@ -1,8 +1,9 @@
 #![doc(html_playground_url = "https://play.rust-lang.org/")]
 #![feature(trait_alias)]
-//! # `aima-rust` &emsp; ![Build] ![Crate]
+//! ![Build] ![Crate]
 //!
 //! [Build]: https://github.com/nkconnor/aima-rust/workflows/build/badge.svg
+//! [Crate]: https://img.shields.io/crates/v/aima-rust
 //!
 //! Rust implementation of programs in [**Artifical Intelligence: A Modern Approach**](http://aima.cs.berkeley.edu/).
 //! For more complete examples please see the [Java](http://j) and [Python](http://p) repositories.
@@ -28,7 +29,7 @@
 //! quickly builds up to assume that you have at minimum beginner knowledge of programming in Rust.
 //!
 //!
-//! _Instructions on how to read the documentation and follow-along while reading the book goes here_
+//! _Instructions on how to get set-up and use this project as a companion to the book goes here_
 //!
 //! ## Index of Algorithms
 //!
